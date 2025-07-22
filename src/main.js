@@ -111,7 +111,7 @@ function analyzeSalesData(data, options) {
       if (!seller.products_sold[item.sku]) {
         seller.products_sold[item.sku] = 0;
       }
-      seller.products_sold[item.sku] += 1; // По артикулу товара увеличить его проданное количество у продавца
+      seller.products_sold[item.sku] += item.quantity; // По артикулу товара увеличить его проданное количество у продавца
     });
   });
 
@@ -122,6 +122,7 @@ function analyzeSalesData(data, options) {
   sellerStats.forEach((seller, index) => {
     seller.bonus = calculateBonusByProfit(index, sellerStats.length, seller); // Считаем бонус
     seller.top_products = Object.entries(seller.products_sold).map(([sku, quantity]) => ({sku, quantity})).sort((a, b) => b.quantity - a.quantity).slice(0, 10); // Формируем топ-10 товаров
+    console.log(seller.top_products)
   });
 
   //Подготовка итоговой коллекции с нужными полями
