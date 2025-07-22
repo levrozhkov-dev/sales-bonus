@@ -48,8 +48,8 @@ function analyzeSalesData(data, options) {
     !Array.isArray(data.products) ||
     !Array.isArray(data.purchase_records) ||
     data.sellers.length === 0 ||
-    data.products === 0 ||
-    data.purchase_records === 0
+    data.products.length === 0 ||
+    data.purchase_records.length === 0
   ) {
     throw new Error("Некорректные входные данные");
   }
@@ -132,6 +132,6 @@ function analyzeSalesData(data, options) {
     profit: +seller.profit.toFixed(2), // Число с двумя знаками после точки, прибыль продавца
     sales_count: seller.sales_count, // Целое число, количество продаж продавца
     top_products: seller.top_products, // Массив объектов вида: { "sku": "SKU_008","quantity": 10}, топ-10 товаров продавца
-    bonus: seller.bonus // Число с двумя знаками после точки, бонус продавца
+    bonus: +seller.bonus.toFixed(2) // Число с двумя знаками после точки, бонус продавца
   }));
 }
